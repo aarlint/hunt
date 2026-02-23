@@ -1,0 +1,19 @@
+services:
+  hunt:
+    build: .
+    container_name: hunt
+    restart: unless-stopped
+    volumes:
+      - hunt-data:/app/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.hunt.loadbalancer.server.port=3001"
+    networks:
+      - traefik-proxy
+
+volumes:
+  hunt-data:
+
+networks:
+  traefik-proxy:
+    external: true
